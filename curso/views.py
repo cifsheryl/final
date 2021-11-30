@@ -1,22 +1,17 @@
 from django.shortcuts import render
 from django.contrib import messages
-from .forms import CursoForm
-from curso.models import Curso, Asignacion
+from .forms import AlumnoForm
+from curso.models import Alumno, Actuacion, AlumnoAdmin
 
-
-# Create your views here.
 def curso_nuevo(request):
     if request.method == "POST":
-
-        formulario = CursoForm(request.POST)
+        formulario = AlumnoForm(request.POST)
         if formulario.is_valid():
-
-         curso = Curso.objects.create(nombre=formulario.cleaned_data['nombre'], anio = formulario.cleaned_data['anio'])
-
-         for curso_id in request.POST.getlist('alumno'):
-             asignacion = Asignacion(alumno_id=alumno_id, curso_id = curso.id)
-             asignacion.save()
-        messages.add_message(request, messages.SUCCESS, 'CUrso Guardado Exitosamente')
+            alumno = Alumno.objects.create(nombre=formulario.cleaned_data['nombre'], anio = formulario.cleaned_data['anio'])
+            for curso_id in request.POST.getlist('curso'):
+                actuacion = Actuacion(curso_id=curso_id, alumno_id = alumno.id)
+                actuacion.save()
+            messages.add_message(request, messages.SUCCESS, 'Alumno Guardado Exitosamente')
     else:
-        formulario = CursoForm()
+        formulario = AlumnoForm()
     return render(request, 'curso/curso_editar.html', {'formulario': formulario})

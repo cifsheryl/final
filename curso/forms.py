@@ -1,15 +1,14 @@
 from django import forms
-from .models import Curso, Alumno
+from .models import Alumno, Curso
 
-
-class CursoForm(forms.ModelForm):
-#todos los campos de Pelicula
+class AlumnoForm(forms.ModelForm):
+    #todos los campos de Alumno
     class Meta:
-        model = Curso
-        fields = ('nombre', 'anio', 'alumno')
+        model = Alumno
+        fields = ('nombre', 'anio', 'curso')
 
     def __init__ (self, *args, **kwargs):
-        super(CursoForm, self).__init__(*args, **kwargs)
-        self.fields["alumno"].widget = forms.widgets.CheckboxSelectMultiple()
-        self.fields["alumno"].help_text = "Ingrese los Alumnos que se asignaron al curso"
-        self.fields["alumno"].queryset = Alumno.objects.all()
+        super(AlumnoForm, self).__init__(*args, **kwargs)
+        self.fields["curso"].widget = forms.widgets.CheckboxSelectMultiple()
+        self.fields["curso"].help_text = "Ingrese los curso que tendra el alumno"
+        self.fields["curso"].queryset = Curso.objects.all()
