@@ -15,7 +15,7 @@ def curso_nuevo(request):
 
          for curso_id in request.POST.getlist('alumno'):
              asignacion = Asignacion(alumno_id=alumno_id, curso_id = curso.id)
-         asignacion.save()
+             asignacion.save()
         messages.add_message(request, messages.SUCCESS, 'CUrso Guardado Exitosamente')
     else:
         formulario = CursoForm()
