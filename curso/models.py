@@ -12,7 +12,7 @@ class Alumno(models.Model):
 class Curso(models.Model):
     nombre    = models.CharField(max_length=60)
     anio      = models.IntegerField()
-    alumnos   = models.ManyToManyField(Alumno, through='Asignacion')
+    alumno  = models.ManyToManyField(Alumno, through='Asignacion')
 
     def __str__(self):
         return self.nombre
